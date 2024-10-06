@@ -1,0 +1,68 @@
+# 레이아웃
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="30dp"
+        android:orientation = "vertical">
+
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:src="@drawable/rabbit"
+            android:id="@+id/imgBtn1"
+            android:layout_margin="30dp"
+            android:scaleType="fitCenter"/>
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_margin="30dp"
+            android:rotation="0"
+            android:src="@drawable/rabbit"
+            android:id="@+id/img1"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+# 자바코드
+
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.ImageButton
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    // 회전 각도를 저장하는 변수
+    private var currentRotation = 0f
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // XML에서 ImageButton과 ImageView를 연결
+        val imgBtn1 = findViewById<ImageButton>(R.id.imgBtn1)
+        val img1 = findViewById<ImageView>(R.id.img1)
+
+        // 버튼 클릭 리스너 설정
+        imgBtn1.setOnClickListener { // 현재 회전 각도를 10도씩 증가시킴
+            currentRotation += 10f
+            // 이미지에 새로운 회전 각도를 적용
+            img1.rotation = currentRotation
+        }
+    }
+}
