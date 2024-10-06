@@ -1,0 +1,152 @@
+# XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+    </LinearLayout>
+
+</LinearLayout>
+
+# JAVA
+
+package com.example.myapplication;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.Color;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle("연습문제 5-7");
+
+        // 전체 레이아웃 생성
+        LinearLayout baseLayout = new LinearLayout(this);
+        baseLayout.setOrientation(LinearLayout.VERTICAL);
+        setContentView(baseLayout);
+
+        // 첫 번째 수평 레이아웃
+        LinearLayout firstHorizontalLayout = new LinearLayout(this);
+        firstHorizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                0,
+                1 // weight
+        ));
+        firstHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+        baseLayout.addView(firstHorizontalLayout);
+
+        // 첫 번째 레이아웃 (빨강)
+        LinearLayout redLayout = new LinearLayout(this);
+        redLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                1 // weight
+        ));
+        redLayout.setBackgroundColor(Color.RED);
+        firstHorizontalLayout.addView(redLayout);
+
+        // 두 번째 수직 레이아웃
+        LinearLayout secondVerticalLayout = new LinearLayout(this);
+        secondVerticalLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                1 // weight
+        ));
+        secondVerticalLayout.setOrientation(LinearLayout.VERTICAL);
+        firstHorizontalLayout.addView(secondVerticalLayout);
+
+        // 두 번째 레이아웃 (노랑)
+        LinearLayout yellowLayout = new LinearLayout(this);
+        yellowLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                0,
+                1 // weight
+        ));
+        yellowLayout.setBackgroundColor(Color.YELLOW);
+        secondVerticalLayout.addView(yellowLayout);
+
+        // 세 번째 레이아웃 (검정)
+        LinearLayout blackLayout = new LinearLayout(this);
+        blackLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                0,
+                1 // weight
+        ));
+        blackLayout.setBackgroundColor(Color.BLACK);
+        secondVerticalLayout.addView(blackLayout);
+
+        // 마지막 수평 레이아웃
+        LinearLayout lastHorizontalLayout = new LinearLayout(this);
+        lastHorizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                0,
+                1 // weight
+        ));
+        lastHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+        baseLayout.addView(lastHorizontalLayout);
+
+        // 마지막 레이아웃 (파랑)
+        LinearLayout blueLayout = new LinearLayout(this);
+        blueLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        ));
+        blueLayout.setBackgroundColor(Color.BLUE);
+        lastHorizontalLayout.addView(blueLayout);
+    }
+}
