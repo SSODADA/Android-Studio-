@@ -1,0 +1,172 @@
+xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnStart"
+            android:text="사진보기 시작"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnStop"
+            android:text="사진보기 정지"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ViewFlipper1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                android:src="@drawable/dandadan"
+                android:id="@+id/img1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="Dandadan"
+                android:textColor="#ff0000"
+                android:textSize="24dp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                android:src="@drawable/rezero"
+                android:id="@+id/img2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="Re.zero"
+                android:textColor="#ff0000"
+                android:textSize="24dp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                android:src="@drawable/uzumaki"
+                android:id="@+id/img3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="Uzumaki"
+                android:textColor="#ff0000"
+                android:textSize="24dp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+    </ViewFlipper>
+
+</LinearLayout>
+
+java
+package com.example.helloandroid;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ViewFlipper;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    Button btnStart, btnStop;
+    ViewFlipper ViewFlipper1;
+    Handler handler;
+    Runnable runnable;
+    boolean isFlipping = false; // 플리핑 상태를 나타내는 변수
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ViewFlipper1 = findViewById(R.id.ViewFlipper1);
+        btnStart = findViewById(R.id.btnStart); // btnStart는 btnPrev로 수정
+        btnStop = findViewById(R.id.btnStop);   // btnEnd는 btnNext로 수정
+        btnStart.setOnClickListener(this);
+        btnStop.setOnClickListener(this);
+
+        handler = new Handler();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnStart) {
+            startFlipping();
+        } else if (v == btnStop) {
+            stopFlipping();
+        }
+    }
+
+    private void startFlipping() {
+        if (!isFlipping) {
+            isFlipping = true; // 플리핑 상태를 true로 변경
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    ViewFlipper1.showNext();
+                    handler.postDelayed(this, 1000); // 1초 후에 다시 실행
+                }
+            };
+            handler.post(runnable); // runnable 실행
+        }
+    }
+
+    private void stopFlipping() {
+        isFlipping = false; // 플리핑 상태를 false로 변경
+        handler.removeCallbacks(runnable); // 핸들러에 등록된 모든 콜백 제거
+    }
+}
